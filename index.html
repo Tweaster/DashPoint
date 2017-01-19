@@ -1,0 +1,211 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+
+
+
+<link rel="shortcut icon" href="img/favicon.png"/>
+
+
+<link rel="stylesheet" href="css/normalize-5.0.0.min.css" />
+
+<link rel="stylesheet" href="css/awesomplete.css" />
+
+
+
+<link href='css/fullcalendar.min.css' rel='stylesheet' />
+<link href='css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+
+
+
+<!-- stylesheet -->
+<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" /> -->
+<link rel="stylesheet" type="text/css" href="css/circle.css" />
+<link rel="stylesheet" type="text/css" href="css/dash.css" />
+
+<!-- external scripts -->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+<!--script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script src="js/jquery.columnizer.js" type="text/javascript" charset="utf-8"></script-->
+
+
+<!-- task edit -->
+<link href="css/taskedit/formCss.css" rel="stylesheet" type="text/css">
+<link type="text/css" rel="stylesheet" href="css/taskedit/nova.css">
+<link type="text/css" media="print" rel="stylesheet" href="css/taskedit/printForm.css">
+
+<link rel="stylesheet" type="text/css" href="css/jquery.datepick.css"> 
+<!--script src="js/taskedit/prototype.forms.js" type="text/javascript"></script>
+<script src="js/taskedit/jotform.forms.js" type="text/javascript"></script-->
+
+
+<script src="js/awesomplete.min.js"></script>
+<script src="js/jquery.countTo.js"></script>
+<script src="js/markdown.min.js"></script>
+
+<script src="js/huffman-0.9.0.min.js"></script>
+
+
+
+<script src="js/modal.js"></script>
+
+
+<script src="js/amcharts/amcharts.js"></script>
+<script src="js/amcharts/pie.js"></script>
+<script src="js/amcharts/serial.js"></script>
+<script src="js/amcharts/themes/light.js"></script>
+
+
+<script src="js/lorem.js" type="text/javascript"></script>
+<script src="js/jquery.plugin.min.js" type="text/javascript"></script>
+<script src="js/jquery.datepick.min.js" type="text/javascript"></script>
+
+
+<script src="js/dash-utils.js" type="text/javascript"></script>
+<script src="js/dash-core.js" type="text/javascript"></script>
+<script src="js/dash-ui.js" type="text/javascript"></script>
+<script src="js/dash-settings-dialog.js" type="text/javascript"></script>
+<script src="js/dash-search.js" type="text/javascript"></script>
+<script src='js/dash-calendar.js'></script>
+<script src="js/dash-core-test.js" type="text/javascript"></script>
+
+
+<title>Dash</title>
+
+
+<script>
+
+
+	function onAppStart()
+	{
+	  	initUI();
+	  	startTest();
+	}
+    
+
+    document.addEventListener("deviceready", onAppStart, false);
+
+    $(document).ready(function() 
+    {
+        // are we running in native app or in a browser?
+        window.isphone = false;
+        if(document.URL.indexOf("http://") === -1 
+            && document.URL.indexOf("https://") === -1) 
+        {
+            window.isphone = true;
+        }
+
+        if( !window.isphone ) 
+        {
+            onAppStart();
+        }
+    });
+
+</script>
+
+
+
+<script src="phonegap.js"></script>
+
+
+
+</head>
+
+<body>
+
+	<div data-role="page" data-theme="a" id="mainframe">
+
+			<div id="sidebar1">
+
+			    <ul>
+			      <a href="#" class="ui-sidebar-entry"><li class="ui-sidebar-entry" id="home-sidebar-entry">Home</li></a>
+			      <a href="#" class="ui-sidebar-entry"><li class="ui-sidebar-entry" id="search-sidebar-entry">Search</li></a>
+			      <a href="#" class="ui-sidebar-entry"><li class="ui-sidebar-entry" id="users-sidebar-entry">Users</li></a>
+			      <a href="#" class="ui-sidebar-entry"><li class="ui-sidebar-entry" id="workflow-sidebar-entry">Workflow</li></a>
+			      <a href="#" class="ui-sidebar-entry"><li class="ui-sidebar-entry" id="perf-sidebar-entry">Performance Indicator</li></a>
+			      <a href="#" class="ui-sidebar-entry"><li class="ui-sidebar-entry" id="calendar-sidebar-entry">Calendar</li></a>
+			      <a href="#" class="ui-sidebar-entry"><li class="ui-sidebar-entry" id="settings-sidebar-entry">Settings</li></a>
+			  </ul>
+			<!-- end sidebar1 -->  
+			</div>
+	 
+		<div class="container">
+
+			<div id="breadcrumb"> 
+
+			</div>
+
+			
+
+
+			<div id="top-shelf">
+
+			
+
+			<!-- end top-shelf -->
+			</div>
+
+
+
+
+			<div class="drawer ui-screen-hidden" id="ui-drawer">
+				<div class="drawer-pin"></div>
+				<div class="drawer-content">
+
+
+				<!-- end drawer-content -->
+				</div>
+			<!-- end drawer -->
+			</div>
+
+			
+
+
+		<!-- end container -->
+		</div>
+
+		<!-- Settings modal dialog -->
+		<div id="settings-dialog" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		    <!-- Modal content-->
+		    <div class="modal-content">
+
+		      <div class="modal-header" > 
+		      		<button type="button" class="close" data-dismiss="modal">&times;</button>
+        			<h4 class="modal-title"></h4>
+		      </div>
+		      
+		      <div class="modal-body" id="setting-dialog-content">
+
+		        
+		          
+		      </div>
+
+		      <div class="modal-footer">
+		        <a class="validate-modal-dialog" data-dismiss="modal" href="#" id="btn-validate-settings">Validate</a>
+		      </div>
+		    </div>
+
+		  </div>
+		</div>
+
+	<!-- end page -->
+	</div>
+
+
+	
+
+</body>
+
+
+<script src='js/fullcalendar/lib/moment.min.js'></script>
+<script src='js/fullcalendar/fullcalendar.min.js'></script>
+
+<script src="js/SpryTabbedPanels.js" type="text/javascript"></script>
+<link href="css/SpryTabbedPanels-bright.css" rel="stylesheet" type="text/css" />
+
+</html>
