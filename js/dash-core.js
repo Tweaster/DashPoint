@@ -133,7 +133,7 @@ var PROJECTS = {};
  	constructor( startTime, endTime)
  	{
  		this._s = startTime;
- 		this._s = endTime;
+ 		this._e = endTime;
  	}
 
  	static getDefault()
@@ -153,12 +153,12 @@ var PROJECTS = {};
 
  	getEndTime()
  	{
- 		return this._s;
+ 		return this._e;
  	}
 
  	setEndTime(t)
  	{
- 		this._s = t;
+ 		this._e = t;
  	}
  }
 
@@ -523,7 +523,7 @@ class Task
 					var tmp = project.getBusinessHours(i);
 					if (tmp !== null)
 					{
-						var bh = new BusinessHours(tmp._s, tmp._s);
+						var bh = new BusinessHours(tmp._s, tmp._e);
 						this._bh[i] = bh;
 					}
 				}
