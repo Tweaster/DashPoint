@@ -92,6 +92,8 @@ function displaySearchResult()
 	$('#breadcrumb').append('<div class="banner-tasks-count"> (' + tasks.length.toString() + ' tasks found)</div>');
 
 	$('#top-shelf').html(html);
+
+	resizeEventHandler();
 }
 
 
