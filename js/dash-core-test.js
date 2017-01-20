@@ -82,7 +82,7 @@ function generateRandomUser(project, count)
 		user.setDescription(lorem.createText(5, Lorem.TYPE.SENTENCE));
 		user.setEmail(lorem.createText(1, Lorem.TYPE.WORD) + "." + lorem.createText(1, Lorem.TYPE.WORD) + "@projectfurnace.org");
 		var size = (58 + i).toString();
-		user.setAvatarUrl('http://lorempixel.com/'+size+'/'+size+'/');
+		//user.setAvatarUrl('http://lorempixel.com/'+size+'/'+size+'/');
 		project.addTeamMember(user.id());
 	}
 }
