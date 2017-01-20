@@ -87,7 +87,7 @@
 	}
     
 
-    document.addEventListener("deviceready", onAppStart, false);
+    //document.addEventListener("deviceready", onAppStart, false);
 
     $(document).ready(function() 
     {
@@ -99,6 +99,8 @@
             window.isphone = true;
         }
 
+        window.isphone = false;
+
         if( !window.isphone ) 
         {
             onAppStart();
@@ -109,7 +111,7 @@
 
 
 
-<script src="phonegap.js"></script>
+<!--script src="phonegap.js"></script-->
 
 
 

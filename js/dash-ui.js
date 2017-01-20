@@ -41,6 +41,7 @@ var projectHTML = `
 			<div>
 				 {4} subtasks
 			</div>
+
 			<div class="btn-create-task" data-source="{0}">
 			</div>
 
@@ -217,6 +218,15 @@ function containerWidth()
 	return $(window).width() -30;
 }
 
+function centerModalDialog()
+{
+  $('.modal.fade.in > .modal-dialog').css("opacity", "0");
+  $('.modal.fade.in > .modal-dialog').css("margin-left", "-350px");
+  var hmargin = Math.floor(($(window).width() - $('.modal.fade.in > .modal-dialog > .modal-content').width()) / 2);
+  hmargin = (hmargin < 0) ? 0 : hmargin;
+  $('.modal.fade.in > .modal-dialog').animate({ left : "0px", marginLeft:  hmargin.toString() + "px", opacity : "1"}, 500); 
+}
+
 
 
 function generateTagsHTML(task)
@@ -257,9 +267,9 @@ function buildBreadCrumbHTML(task)
 	return html;
 }
 
-function userSmallAvatarHTML(user)
+function userSmallAvatarHTML(user, taskId)
 {
-	var html = String.format('<img src="{0}" alt="{1}" class="user-small-avatar" data-source="{2}">', user.getAvatarUrl(), user.getName(), user.id());
+	var html = String.format('<div class="avatar-container"><img src="{0}" alt="{1}" class="user-small-avatar" data-source="{2}"><div class="btn-remove-user" data-userid="{2}" data-taskid="{3}">&times</div></div>', user.getAvatarUrl(), user.getName(), user.id(), taskId);
 	return html;
 }
 
@@ -278,7 +288,7 @@ function generateTaskHTML(task)
 
 		var assignee = task.getAssignee();
 
-		assignee = (assignee !== null) ? userSmallAvatarHTML(assignee) : "";
+		assignee = (assignee !== null) ? userSmallAvatarHTML(assignee, task.id()) : "";
 
 		return String.format(
 			taskHTML, 
@@ -308,9 +318,11 @@ function generateTeamMembersHTML(project)
 		var member = USERS[members[i]];
 		if (member instanceof User)
 		{
-			html += userSmallAvatarHTML(member);
+			html += userSmallAvatarHTML(member, project.id());
 		}
 	}
+
+	html += '<div class="btn-create-user" data-source="' + project.id() + '"></div>';
 
 	return html;
 }
@@ -379,6 +391,11 @@ function generateUserCardHTML(user)
 			generateUserTaskListAsTagsHTML(user.getAssignedTasks())
 		);
 	}
+}
+
+function reconstructUserCard(id)
+{
+	showUsers();
 }
 
 function reconstructTaskCard(taskId)
@@ -853,6 +870,8 @@ function showProjects(projectsList)
 			count++;
 		}
 	}
+
+	html += '<div style="display:inline; white-space:nowrap;"><div class="btn-create-project" data-source="{0}"></div><div>add project</div></div>';
 
 	$('#top-shelf').html(html);
 	$('#breadcrumb').html('<h3>Projects</h3> <div class="banner-tasks-count">(' + count.toString() + ' projects found)</div>');
@@ -1366,7 +1385,7 @@ function resizeEventHandler()
 	{
 		var minColumnWidth = 370;
 		var nbColumn = Math.floor(w / (minColumnWidth + 22));
-		var optimizedColumnWidth = Math.floor((w - (minColumnWidth + 22) * nbColumn -30) / nbColumn) + minColumnWidth;
+		var optimizedColumnWidth = Math.floor((w - (minColumnWidth + 22) * nbColumn - 45) / nbColumn) + minColumnWidth;
 
 		$("div.task-card, div.user-card").css("width", (optimizedColumnWidth - 22).toString() + "px");
 		$("div.user-card > div.card-pin").css("width", (optimizedColumnWidth + 8).toString() + "px")
@@ -1431,6 +1450,11 @@ function clickPerformed(evt)
 		var taskId = $(lastClickedObject).attr("data-source");
 		createSubtask(taskId);
 	}
+	// click on add subtask
+	else if (lastClickedObject.is('.btn-create-project'))
+	{
+		createSubtask(null);
+	}
 	// click on edit tags
 	else if (lastClickedObject.is('.btn-edit-tags'))
 	{
@@ -1463,6 +1487,26 @@ function clickPerformed(evt)
 	{
 		var taskId = $(lastClickedObject).attr("data-source");
 		promoteTaskToTopShelf(taskId, animationDuration);
+	}
+
+	// click on edit user
+	else if (lastClickedObject.is('.btn-edit-user'))
+	{
+		var userId = $(lastClickedObject).attr("data-source");
+		editUser(userId);
+	}
+	// click on add user
+	else if (lastClickedObject.is('.btn-create-user'))
+	{
+		var userId = $(lastClickedObject).attr("data-source");
+		createUser(userId);
+	}
+
+	// click on user avatar
+	else if (lastClickedObject.is('.user-small-avatar'))
+	{
+		var userId = $(lastClickedObject).attr("data-source");
+		showUsers([userId]);
 	}
 
 	// click on calendar

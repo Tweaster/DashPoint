@@ -499,7 +499,7 @@ class Task
 		this._progression = new Record;
 		this._workload = new Record;
 		this._tags = [];
-		this._author = author.id();
+		this._author = author !== null ? author.id() : null;
 		this._assignee = null;
 		this._parent = null;
 		this._subTasks = [];

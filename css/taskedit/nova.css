@@ -493,18 +493,20 @@ h3.form-header {
 	overflow: hidden;
 }*/
 
+#cid_26, #id_26, .form-all, .form-section {
+	width: 100%;
+}
 
 
-
-textarea#settings-task-description, #editor div {
+textarea#settings-task-description, textarea.form-textarea {
   display: inline-block;
-  width: 49%;
-  height: 200px;
+  width: 100%;
+  height: 150px;
   vertical-align: top;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 0 20px;
+  padding: 0 10px;
   color: #222;
 }
 
